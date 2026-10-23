@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teams - Esports Tournament Manager</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="site-header" id="siteHeader"></header>
+
+<main class="container">
+  <h1>Teams</h1>
+
+  <section class="card" id="createTeamCard">
+    <h2>Register a new team</h2>
+    <form id="createTeamForm" novalidate>
+      <div class="grid cols-2">
+        <div class="field">
+          <label for="teamName">Team name</label>
+          <input type="text" id="teamName" name="name" data-validate="required" required>
+          <small class="error" data-error-for="name"></small>
+        </div>
+        <div class="field">
+          <label for="teamGame">Game</label>
+          <select id="teamGame" name="gameId" required></select>
+        </div>
+        <div class="field">
+          <label for="teamOrg">Organization (optional)</label>
+          <input type="text" id="teamOrg" name="organization">
+        </div>
+        <div class="field">
+          <label for="teamCountry">Country</label>
+          <input type="text" id="teamCountry" name="country" data-validate="required" required>
+          <small class="error" data-error-for="country"></small>
+        </div>
+      </div>
+      <button type="submit">Create team</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>All teams</h2>
+    <div class="field" style="max-width:300px">
+      <label for="teamFilter">Filter by country</label>
+      <input type="text" id="teamFilter" placeholder="e.g. India">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Game</th><th>Country</th><th>Status</th><th></th></tr></thead>
+        <tbody id="teamRows"><tr><td colspan="5">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card hidden" id="teamDetailCard">
+    <h2 id="teamDetailName"></h2>
+    <p id="teamDetailMeta"></p>
+    <h3>Roster</h3>
+    <ul id="teamRoster"></ul>
+    <div id="captainControls"></div>
+    <button class="secondary" id="joinTeamBtn">Join this team (players only)</button>
+  </section>
+</main>
+
+<footer class="site-footer">Full Stack Development Mini Project · SIT Pune</footer>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/validation.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/teams.js"></script>
+</body>
+</html>

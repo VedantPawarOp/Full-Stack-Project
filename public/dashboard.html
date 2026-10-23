@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Esports Tournament Manager</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="site-header" id="siteHeader"></header>
+
+<main class="container">
+  <h1>Dashboard</h1>
+  <section class="stat-grid" aria-label="Quick stats">
+    <div class="card"><h3 id="statTeams">-</h3><p>Teams</p></div>
+    <div class="card"><h3 id="statTournaments">-</h3><p>Tournaments</p></div>
+    <div class="card"><h3 id="statOngoing">-</h3><p>Ongoing</p></div>
+    <div class="card"><h3 id="statMatches">-</h3><p>Matches played</p></div>
+  </section>
+
+  <section class="card">
+    <h2>Upcoming / ongoing tournaments</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Game</th><th>Status</th><th>Starts</th><th></th></tr></thead>
+        <tbody id="tournamentRows"><tr><td colspan="5">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">Full Stack Development Mini Project · SIT Pune</footer>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

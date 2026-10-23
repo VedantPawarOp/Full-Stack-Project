@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search - Esports Tournament Manager</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="site-header" id="siteHeader"></header>
+
+<main class="container">
+  <h1>Search</h1>
+  <section class="card">
+    <form id="searchForm">
+      <div class="grid cols-2">
+        <div class="field">
+          <label for="searchType">Search in</label>
+          <select id="searchType" name="type">
+            <option value="players">Players</option>
+            <option value="teams">Teams</option>
+            <option value="tournaments">Tournaments</option>
+            <option value="matches">Matches</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="searchQuery">Query (name / gamer tag / country)</label>
+          <input type="text" id="searchQuery" name="q" placeholder="e.g. Pune">
+        </div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <div class="table-wrap">
+      <table>
+        <thead id="resultsHead"><tr><th>Results</th></tr></thead>
+        <tbody id="resultsBody"><tr><td>Run a search above.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">Full Stack Development Mini Project · SIT Pune</footer>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/search.js"></script>
+</body>
+</html>

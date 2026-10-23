@@ -1,0 +1,212 @@
+/* =====================================================================
+   Esports Tournament Manager - stylesheet
+   Unit 2: Selectors, Box model, Flexbox, CSS Grid, Media queries,
+   mobile-first responsive design.
+   ===================================================================== */
+
+:root {
+  --bg: #0f1420;
+  --surface: #161d2e;
+  --surface-alt: #1e2740;
+  --border: #2b3557;
+  --text: #e8ecf8;
+  --text-dim: #99a3c2;
+  --accent: #6c5ce7;
+  --accent-2: #00d4b5;
+  --danger: #ff5c7c;
+  --warning: #ffb347;
+  --radius: 10px;
+  --gap: 1rem;
+  --max-width: 1100px;
+}
+
+/* ---- base / box model ---- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+h1, h2, h3 { line-height: 1.2; margin-top: 0; }
+a { color: var(--accent-2); }
+
+/* ---- mobile-first layout: single column by default ---- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* ---- header / nav: Flexbox ---- */
+header.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.nav-inner .brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav.main-nav a {
+  text-decoration: none;
+  color: var(--text-dim);
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+}
+
+nav.main-nav a.active,
+nav.main-nav a:hover {
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+#userBadge { font-size: 0.85rem; color: var(--text-dim); }
+
+/* ---- cards / sections ---- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card h2, .card h3 { margin-bottom: 0.5rem; }
+
+/* ---- CSS Grid layouts ---- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap);
+}
+
+/* ---- forms ---- */
+form .field { margin-bottom: 0.85rem; display: flex; flex-direction: column; gap: 0.3rem; }
+label { font-size: 0.85rem; color: var(--text-dim); }
+input, select, textarea {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.95rem;
+}
+input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
+.field small.error { color: var(--danger); min-height: 1em; display: block; }
+.field small.hint { color: var(--text-dim); }
+
+button, .btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+button.secondary { background: var(--surface-alt); border: 1px solid var(--border); }
+button.danger { background: var(--danger); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button:hover:not(:disabled) { filter: brightness(1.1); }
+
+/* ---- tables ---- */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 480px; }
+th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+th { color: var(--text-dim); font-weight: 600; }
+
+/* ---- badges ---- */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+}
+.badge.ok { color: var(--accent-2); border-color: var(--accent-2); }
+.badge.warn { color: var(--warning); border-color: var(--warning); }
+.badge.danger { color: var(--danger); border-color: var(--danger); }
+
+/* ---- bracket ---- */
+.bracket {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+.bracket-round { display: flex; flex-direction: column; justify-content: space-around; gap: 1rem; min-width: 200px; }
+.bracket-match { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.85rem; }
+.bracket-match .side { display: flex; justify-content: space-between; padding: 0.15rem 0; }
+.bracket-match .side.win { color: var(--accent-2); font-weight: 600; }
+
+footer.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1rem; right: 1rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  max-width: 320px;
+  z-index: 50;
+}
+.toast.error { border-color: var(--danger); color: var(--danger); }
+.toast.success { border-color: var(--accent-2); color: var(--accent-2); }
+.hidden { display: none !important; }
+
+/* ---- tablet and up ---- */
+@media (min-width: 640px) {
+  .nav-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+  .stat-grid { grid-template-columns: repeat(4, 1fr); }
+  .grid.cols-2 { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- desktop ---- */
+@media (min-width: 960px) {
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}

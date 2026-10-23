@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Esports Tournament Manager</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="site-header" id="siteHeader"></header>
+
+<main class="container">
+  <h1>Admin</h1>
+
+  <section class="card">
+    <h2>Users</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Active</th><th></th></tr></thead>
+        <tbody id="userRows"><tr><td colspan="5">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Reference data</h2>
+    <div class="grid cols-2">
+      <form id="devForm">
+        <h3>Add developer</h3>
+        <div class="field"><label for="devName">Name</label><input id="devName" required></div>
+        <div class="field"><label for="devCountry">Country</label><input id="devCountry"></div>
+        <button type="submit" class="secondary">Add</button>
+      </form>
+      <form id="gameForm">
+        <h3>Add game</h3>
+        <div class="field"><label for="gameTitle">Title</label><input id="gameTitle" required></div>
+        <div class="field"><label for="gameGenre">Genre</label><input id="gameGenre" required></div>
+        <div class="field"><label for="gameDev">Developer</label><select id="gameDev"></select></div>
+        <div class="field"><label for="gamePPT">Players per team</label><input type="number" id="gamePPT" min="1" value="5"></div>
+        <div class="field"><label for="gameRoster">Max roster</label><input type="number" id="gameRoster" min="1" value="7"></div>
+        <button type="submit" class="secondary">Add</button>
+      </form>
+    </div>
+    <form id="venueForm" style="margin-top:1rem">
+      <h3>Add venue</h3>
+      <div class="grid cols-2">
+        <div class="field"><label for="venueName">Name</label><input id="venueName" required></div>
+        <div class="field"><label for="venueCity">City</label><input id="venueCity" required></div>
+        <div class="field"><label for="venueCountry">Country</label><input id="venueCountry" required></div>
+        <div class="field"><label for="venueCapacity">Capacity</label><input type="number" id="venueCapacity" min="1"></div>
+      </div>
+      <button type="submit" class="secondary">Add</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Raw collection browser</h2>
+    <div class="field" style="max-width:300px">
+      <label for="collectionSelect">Collection</label>
+      <select id="collectionSelect">
+        <option value="users">users</option>
+        <option value="teams">teams</option>
+        <option value="tournaments">tournaments</option>
+        <option value="matches">matches</option>
+      </select>
+    </div>
+    <pre id="collectionOutput" style="white-space:pre-wrap; max-height:400px; overflow:auto; background:var(--surface-alt); padding:0.75rem; border-radius:8px; font-size:0.8rem;"></pre>
+  </section>
+</main>
+
+<footer class="site-footer">Full Stack Development Mini Project · SIT Pune</footer>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

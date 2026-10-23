@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esports Tournament Manager - Login</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand">🏆 Esports Tournament Manager</div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="grid cols-2">
+
+    <!-- ===================== LOGIN ===================== -->
+    <article class="card" aria-labelledby="loginHeading">
+      <h2 id="loginHeading">Log in</h2>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" name="email" data-validate="email" required placeholder="you@example.com">
+          <small class="error" data-error-for="email"></small>
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" data-validate="required" minlength="6" required>
+          <small class="error" data-error-for="password"></small>
+        </div>
+        <button type="submit">Log in</button>
+      </form>
+      <p style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-dim)">
+        Demo accounts (password <code>Pass@123</code>): admin@esportsdb.edu ·
+        rahul.bose@example.com (organizer) · aarav.deshmukh@example.com (player) · amit.jain@example.com (viewer)
+      </p>
+    </article>
+
+    <!-- ===================== REGISTER ===================== -->
+    <article class="card" aria-labelledby="registerHeading">
+      <h2 id="registerHeading">Create an account</h2>
+      <form id="registerForm" novalidate>
+        <div class="field">
+          <label for="regName">Full name</label>
+          <input type="text" id="regName" name="fullName" data-validate="name" required>
+          <small class="error" data-error-for="fullName"></small>
+        </div>
+        <div class="field">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" name="email" data-validate="email" required>
+          <small class="error" data-error-for="email"></small>
+        </div>
+        <div class="field">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" name="password" data-validate="password" minlength="6" required>
+          <small class="error" data-error-for="password"></small>
+        </div>
+        <div class="field">
+          <label for="regRole">I am a</label>
+          <select id="regRole" name="role" required>
+            <option value="PLAYER">Player</option>
+            <option value="ORGANIZER">Organizer</option>
+            <option value="VIEWER">Viewer</option>
+          </select>
+        </div>
+        <div class="field" id="gamerTagField">
+          <label for="regGamerTag">Gamer tag</label>
+          <input type="text" id="regGamerTag" name="gamerTag" data-validate="gamerTag" placeholder="e.g. AaravD">
+          <small class="error" data-error-for="gamerTag"></small>
+        </div>
+        <div class="field hidden" id="orgNameField">
+          <label for="regOrgName">Organization name</label>
+          <input type="text" id="regOrgName" name="organizationName">
+        </div>
+        <button type="submit">Create account</button>
+      </form>
+    </article>
+
+  </section>
+</main>
+
+<footer class="site-footer">Full Stack Development Mini Project · SIT Pune</footer>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/validation.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>
