@@ -1,0 +1,220 @@
+{
+  "info": {
+    "name": "Esports Tournament Manager API",
+    "description": "Postman collection for testing the REST API (Unit: testing APIs using Postman). Run 'Register/Login' first - the login requests save the JWT into the {{token}} collection variable automatically via a test script.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" },
+    { "key": "teamId", "value": "" },
+    { "key": "tournamentId", "value": "" },
+    { "key": "matchId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register (Organizer)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Test Organizer\",\n  \"email\": \"test.organizer@example.com\",\n  \"password\": \"Pass@123\",\n  \"role\": \"ORGANIZER\",\n  \"organizationName\": \"Test Org\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (Admin)",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "const data = pm.response.json();",
+                "if (data.token) { pm.collectionVariables.set('token', data.token); }"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@esportsdb.edu\",\n  \"password\": \"Pass@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (Organizer)",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "const data = pm.response.json();",
+                "if (data.token) { pm.collectionVariables.set('token', data.token); }"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rahul.bose@example.com\",\n  \"password\": \"Pass@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get current user (me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catalog (games/developers/venues)",
+      "item": [
+        { "name": "List games", "request": { "method": "GET", "url": "{{baseUrl}}/catalog/games" } },
+        { "name": "List developers", "request": { "method": "GET", "url": "{{baseUrl}}/catalog/developers" } },
+        { "name": "List venues", "request": { "method": "GET", "url": "{{baseUrl}}/catalog/venues" } }
+      ]
+    },
+    {
+      "name": "Teams",
+      "item": [
+        {
+          "name": "List teams",
+          "request": { "method": "GET", "url": "{{baseUrl}}/teams" }
+        },
+        {
+          "name": "Create team",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": ["const d = pm.response.json(); if (d.team) pm.collectionVariables.set('teamId', d.team._id);"] }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/teams",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Demo Team\",\n  \"gameId\": \"REPLACE_WITH_A_GAME_ID\",\n  \"country\": \"India\"\n}"
+            }
+          }
+        },
+        { "name": "Get team by id", "request": { "method": "GET", "url": "{{baseUrl}}/teams/{{teamId}}" } }
+      ]
+    },
+    {
+      "name": "Tournaments",
+      "item": [
+        { "name": "List tournaments", "request": { "method": "GET", "url": "{{baseUrl}}/tournaments" } },
+        { "name": "Get tournament by id", "request": { "method": "GET", "url": "{{baseUrl}}/tournaments/{{tournamentId}}" } },
+        {
+          "name": "Open registration",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/tournaments/{{tournamentId}}/open-registration"
+          }
+        },
+        {
+          "name": "Register team",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/tournaments/{{tournamentId}}/register-team",
+            "body": { "mode": "raw", "raw": "{\n  \"teamId\": \"{{teamId}}\"\n}" }
+          }
+        },
+        {
+          "name": "Close registration",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/tournaments/{{tournamentId}}/close-registration"
+          }
+        },
+        {
+          "name": "Start & generate bracket",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/tournaments/{{tournamentId}}/start"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Matches",
+      "item": [
+        { "name": "List matches for a tournament", "request": { "method": "GET", "url": "{{baseUrl}}/matches?tournament={{tournamentId}}" } },
+        { "name": "Get match by id", "request": { "method": "GET", "url": "{{baseUrl}}/matches/{{matchId}}" } },
+        {
+          "name": "Start match",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/matches/{{matchId}}/start"
+          }
+        },
+        {
+          "name": "Record result",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/matches/{{matchId}}/result",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team1Score\": 13,\n  \"team2Score\": 7,\n  \"playerStats\": []\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leaderboard",
+      "item": [
+        { "name": "Team standings for a tournament", "request": { "method": "GET", "url": "{{baseUrl}}/leaderboard/tournament/{{tournamentId}}/standings" } },
+        { "name": "Player K/D ranking", "request": { "method": "GET", "url": "{{baseUrl}}/leaderboard/players" } }
+      ]
+    },
+    {
+      "name": "Search",
+      "item": [
+        { "name": "Search players", "request": { "method": "GET", "url": "{{baseUrl}}/search?type=players&q=Aarav" } },
+        { "name": "Search teams", "request": { "method": "GET", "url": "{{baseUrl}}/search?type=teams&q=Pune" } }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        { "name": "List users", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/admin/users" } },
+        { "name": "Browse collection (teams)", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/admin/collections/teams" } }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        { "name": "Health check", "request": { "method": "GET", "url": "{{baseUrl}}/health" } }
+      ]
+    }
+  ]
+}
